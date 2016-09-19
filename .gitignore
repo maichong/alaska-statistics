@@ -35,3 +35,14 @@ jspm_packages
 
 # Optional REPL history
 .node_repl_history
+
+/lib/
+/api/
+/controllers/
+/config/
+/locales/
+/middlewares/
+/models/
+/sleds/
+/views/
+/index.js
