@@ -11,6 +11,10 @@ import service from '../';
 import ChartSource from '../models/ChartSource';
 import ChartData from '../models/ChartData';
 
+function sleep(ms) {
+  return new Promise(resolve => setTimeout(resolve, ms));
+}
+
 function getFirstDate(date, unit) {
   return moment(date).startOf(unit);
 }
@@ -93,6 +97,7 @@ async function buildTimeData(source, Model, filters) {
       select += ' ' + y;
     }
     while (true) {
+      await sleep(10);
       let list = Model.find(filters).sort('_id').limit(1000).select(select);
       if (last) {
         list.where('_id').gt(last);
@@ -138,6 +143,7 @@ async function buildTimeData(source, Model, filters) {
 
   if (reducer === 'count') {
     while (true) {
+      await sleep(10);
       if (from.isAfter(lastDate)) {
         break;
       }
@@ -163,15 +169,19 @@ async function buildTimeData(source, Model, filters) {
   } else {
     //sum avg min max
     while (true) {
+      await sleep(10);
       if (from.isAfter(lastDate)) {
         break;
       }
-      let list = await Model.find(filters).where({
-        [x]: {
-          $gte: from,
-          $lt: to
-        }
-      }).select(y);
+      if (!filters) {
+        filters = {};
+      }
+      if (!filters[x]) {
+        filters[x] = {};
+      }
+      filters[x].$gte = from;
+      filters[x].$lt = to;
+      let list = await Model.find(filters).select(y);
       if (list.length) {
         let value = 0;
         for (let item of list) {
@@ -216,6 +226,7 @@ async function buildCycleData(source, Model, filters) {
   }
 
   while (true) {
+    await sleep(10);
     let list = Model.find(filters).sort('_id').limit(1000).select(select);
     if (last) {
       list.where('_id').gt(last);
@@ -275,6 +286,7 @@ async function buildEnumData(source, Model, filters) {
   }
 
   while (true) {
+    await sleep(10);
     let list = Model.find(filters).sort('_id').limit(1000).select(select);
     if (last) {
       list.where('_id').gt(last);
@@ -321,6 +333,7 @@ async function buildCustomData(source, Model, filters, custom) {
   let last;
   let result = {};
   while (true) {
+    await sleep(10);
     let list = Model.find(filters).sort('_id').limit(1000);
     if (last) {
       list.where('_id').gt(last);
