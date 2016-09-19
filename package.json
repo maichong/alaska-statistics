@@ -1,7 +1,11 @@
 {
   "name": "alaska-statistics",
-  "version": "0.10.2",
+  "version": "0.10.3",
   "description": "Alaska statistics service",
+  "keywords": [
+    "alaska",
+    "alaska-service"
+  ],
   "main": "index.js",
   "scripts": {
     "build": "babel ./src --out-dir ./",
@@ -30,6 +34,7 @@
     "react-chartjs": "github:jhudson8/react-chartjs#chartjs-v2",
     "alaska-field-select": "^0.10.4",
     "color": "^0.11.3",
-    "chart.js": "^2.2.2"
+    "chart.js": "^2.2.2",
+    "number-random": "^0.1.1"
   }
 }
