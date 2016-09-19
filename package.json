@@ -1,6 +1,6 @@
 {
   "name": "alaska-statistics",
-  "version": "0.10.1",
+  "version": "0.10.2",
   "description": "Alaska statistics service",
   "main": "index.js",
   "scripts": {
@@ -29,6 +29,7 @@
   "dependencies": {
     "react-chartjs": "github:jhudson8/react-chartjs#chartjs-v2",
     "alaska-field-select": "^0.10.4",
-    "color": "^0.11.3"
+    "color": "^0.11.3",
+    "chart.js": "^2.2.2"
   }
 }
