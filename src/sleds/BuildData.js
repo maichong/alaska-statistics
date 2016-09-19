@@ -260,19 +260,13 @@ async function buildCycleData(source, Model, filters) {
   }
 
   let precision = source.precision || 0;
-  result = _.map(result, (y, x) => {
+  _.forEach(result, (y, x) => {
     if (reducer === 'average') {
       y /= count[x];
     }
     y = _.round(y, precision);
-    return { x, y };
+    (new ChartData({ source, x: parseInt(x), y })).save();
   });
-
-  result = _.sortBy(result, 'x');
-
-  for (let data of result) {
-    await (new ChartData({ source, x: data.x, y: data.y })).save();
-  }
 }
 
 async function buildEnumData(source, Model, filters) {
